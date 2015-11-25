@@ -3,6 +3,8 @@ mapping of class names to CSS modules inside Deku components
 
 ## CSS Modules
 
+**NOTE: This is a work in progress at the moment, the element parsing and style mapping still needs to be implemented.**
+
 [CSS Modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS Modules, it is a concept of using a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS module loader will generate a unique name for a each CSS class at the time of loading the CSS document ([Interoperable CSS](https://github.com/css-modules/icss) to be precise). To see CSS Modules in practice, [webpack-demo](https://css-modules.github.io/webpack-demo/).
 
 In the context of Deku, CSS Modules look like this:
