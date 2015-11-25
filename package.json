@@ -1,0 +1,22 @@
+{
+  "name": "deku-css-modules",
+  "version": "0.0.1",
+  "description": "mapping of class names to CSS modules inside Deku components",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StevenIseki/deku-css-modules.git"
+  },
+  "keywords": [
+    "css",
+    "css-module",
+    "css module",
+    "css video wrapper",
+    "css-video-wrapper",
+    "css video wrapper css module",
+    "react",
+    "reactjs"
+  ],
+  "author": "Steven Iseki <stevenisekimartin@gmail.com>",
+  "license": "MIT"
+}
