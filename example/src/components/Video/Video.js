@@ -7,7 +7,9 @@ import { CSSModules, styles, myFunc } from '../../../dekucssmodules.js'
 
 /* assign the styles */
 import { wrapper } from 'css-video-wrap'
-Object.assign(styles, wrapper)
+import videoStyles from './Video.css'
+
+Object.assign(styles, wrapper, videoStyles)
 
 console.log(styles)
 
@@ -19,12 +21,18 @@ myFunc.render = function () {
 	if(styleName === styles.videoWrapper){
 		className = styles.videoWrapper
 	}
+  console.log('the style name')
+  console.log(styleName)
 
 	// remember this is an ARRAY OF ELEMENTS returning
 	return (
     	<div styleName='videoWrapper' class={className}>
-        	<iframe width="560" height="315" src="https://www.youtube.com/embed/HBHJ0XGZfLs" frameBorder="0" allowFullScreen></iframe>
+        <div styleName='videoWrapper' class={className}>
+          <button class={className} styleName='button blue'>press me</button>
+          <button class={className} styleName='button blue'>press me</button>
+          <button class={className} styleName='button blue'>press me</button>
         </div>
+      </div>
     );
 
 }

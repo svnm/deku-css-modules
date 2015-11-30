@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "deku": "^0.5.6",
+    "magic-virtual-element": "^1.0.6",
     "virtual-element": "^1.2.0"
   }
 }
