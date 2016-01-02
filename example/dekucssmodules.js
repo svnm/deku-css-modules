@@ -36,38 +36,6 @@ let CSSModules = function (component) {
 
     let xChildren = buildDom(items)
 
-    if(items.children.length){
-        items.children.map(function(i) {
-            let child = element(
-                i.type, 
-                {class: i.attributes.class },
-                'click me'
-            )
-            children.push(child)
-        })
-    }
-
-    let parent = element(
-        items.type, 
-        {class: items.attributes.class },
-        children
-    )
-
-    /*
-    let divStyle = {
-      color: 'white'
-    };
-
-    var element1 = { class: "App foo bar", style: divStyle }
-    var element2 = { class: "Button" }
-
-    let itemsX = element('div', element1 , 
-        [
-          element('button', element2 , 'Click Me!')
-        ]
-    );
-    */
-
     return (
     	xChildren
     );
