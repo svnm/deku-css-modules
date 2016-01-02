@@ -11,20 +11,19 @@ let CSSModules = function (component) {
     let { secondsElapsed } = state;
 
     /* now you have the array of items, 
-       match them up with styleName properties to 
-       class...
+       match them up with styleName properties to class...
     */
 
     console.log(styles.videoWrapper)
     /*
-	let className = ''
-	let styleName = styles[Object.keys(styles)[0]]
-	if(styleName === styles.videoWrapper){
-		className = styles.videoWrapper
-	}
-	*/
+    let className = ''
+    let styleName = styles[Object.keys(styles)[0]]
+    if(styleName === styles.videoWrapper){
+        className = styles.videoWrapper
+    }
+    */
 
-	// ITEMS...
+    // ITEMS...
     var items = myFunc.render()
     console.log('the items')
     console.log(items)
@@ -36,14 +35,43 @@ let CSSModules = function (component) {
 
     let xChildren = buildDom(items)
 
+    if(items.children.length){
+        items.children.map(function(i) {
+            let child = element(
+                i.type, 
+                {class: i.attributes.class },
+                'click me'
+            )
+            children.push(child)
+        })
+    }
+
+    let parent = element(
+        items.type, 
+        {class: items.attributes.class },
+        children
+    )
+
+    /*
+
+    var element1 = { class: "App foo bar", style: divStyle }
+    var element2 = { class: "Button" }
+
+    let itemsX = element('div', element1 , 
+        [
+          element('button', element2 , 'Click Me!')
+        ]
+    );
+    */
+
     return (
-    	xChildren
+        xChildren
     );
 }
 
 function updateClass (item) {
     if(item.attributes.class !== undefined){
-        item.attributes.class = 'u not cool'
+        //item.attributes.class = 'u not cool'
     }
     return item
 }
