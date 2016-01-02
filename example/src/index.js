@@ -6,12 +6,8 @@ import {deku, render,tree} from 'deku'
 
 //import { CSSModules } from '../../../dekucssmodules.js'
 
-
-
-let counter = tree(
-  <div>
+let video = tree(
     <Video color='pink' />
-  </div>
 );
 
 function something(app) {
@@ -22,4 +18,4 @@ deku(counter)
   .use(something)
 */
 
-render(counter, document.getElementById('root'))
+render(video, document.getElementById('root'))

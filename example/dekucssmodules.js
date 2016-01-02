@@ -6,106 +6,75 @@ import element from 'magic-virtual-element'
 let myFunc = {}
 let styles = {}
 
+/*
+    deku css modules...
+    replaces the render function on your deku component
+    runs the components render function, which builds a virtual dom object
+    it then reparse's the class names from styleName to css module class names
+    on each vdom node
+*/
+
 let CSSModules = function (component) {
     let { props, state } = component;
-    let { secondsElapsed } = state;
-
-    /* now you have the array of items, 
-       match them up with styleName properties to class...
+    /* 
+        here we have all of the styles passed from the component,
+        because they assigned them to deku-css-modules style Object
     */
-
-    console.log(styles.videoWrapper)
-    /*
-    let className = ''
-    let styleName = styles[Object.keys(styles)[0]]
-    if(styleName === styles.videoWrapper){
-        className = styles.videoWrapper
-    }
-    */
-
-    // ITEMS...
-    var items = myFunc.render()
-    console.log('the items')
-    console.log(items)
-
-    /* but you need to map styleName's to class */
-    // let parent = {class: items.attributes.class, style: items.attributes.style }
-
-    let children = [];
-
-    let xChildren = buildDom(items)
-
-    if(items.children.length){
-        items.children.map(function(i) {
-            let child = element(
-                i.type, 
-                {class: i.attributes.class },
-                'click me'
-            )
-            children.push(child)
-        })
-    }
-
-    let parent = element(
-        items.type, 
-        {class: items.attributes.class },
-        children
-    )
-
-    /*
-
-    var element1 = { class: "App foo bar", style: divStyle }
-    var element2 = { class: "Button" }
-
-    let itemsX = element('div', element1 , 
-        [
-          element('button', element2 , 'Click Me!')
-        ]
-    );
-    */
-
-    return (
-        xChildren
-    );
+    console.log(styles)
+    /* 
+        the items from the components render function,
+        run the function and now we have the virtual dom object here
+    */    
+    let items = myFunc.render()
+    let cssParsedItems = walkDom(items)
+    return cssParsedItems
 }
 
+/* 
+    update with the css module class name, based on the styleName key
+    e.g. styleName blue = class name MyComponent__blue___3QhTp
+*/
 function updateClass (item) {
-    if(item.attributes.class !== undefined){
-        //item.attributes.class = 'u not cool'
+    if(item.attributes === undefined) {
+        return item
     }
+
+    if(item.attributes.styleName === undefined){
+        return item
+    }
+    
+    /* 
+        as we are updating classes from styleName, 
+        if undefined init class to ''
+    */
+    if(item.attributes.class === undefined){    
+        item.attributes.class = ''
+    }
+
+    let styleNameArray = item.attributes.styleName.split(' ')
+    /* map through the styleName's array */
+    if(styleNameArray.length){
+        styleNameArray.map(function (styleName) {
+            item.attributes.class += ' ' + styles[styleName]
+        })
+    }
+    
     return item
 }
 
-function buildChildren (items) {
+/* recursively updates the style names on elements */
+function walkDom (items) {
 
-    if(items.type === 'div'){
-        // div
+    updateClass(items)
+
+    /* if the dom element has a child, recurse again */ 
+    if(items.children){
         items.children.map(function (i) {
-            i = updateClass(i)
-            buildChildren(i);
+            walkDom(i)
         })        
-    } else {
-        // button
-        updateClass(items)
     }
 
     return items;
 }
-
-/* just a note, this doesn't need to rebuild the dom
-   just change the style elements */
-function buildDom(items) {
-
-    updateClass(items);
-    /* for now assume div is the only parent element */
-    let children = buildChildren(items)
-
-    return element(
-        items.type, 
-        {class: items.attributes.class },
-        children
-    )
-}
-
 
 export { CSSModules, styles, myFunc }

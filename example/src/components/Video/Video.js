@@ -5,37 +5,23 @@ import element from 'virtual-element'
 
 import { CSSModules, styles, myFunc } from '../../../dekucssmodules.js'
 
-/* assign the styles */
+/* assign the styles to deku-css-modules' style object */
 import { wrapper } from 'css-video-wrap'
 import videoStyles from './Video.css'
-
 Object.assign(styles, wrapper, videoStyles)
 
-console.log(styles)
-
 myFunc.render = function () {
-
-	// this will move hopefully out to deku-css-modules
-	let className = ''
-	let styleName = styles[Object.keys(styles)[0]]
-	if(styleName === styles.videoWrapper){
-		className = styles.videoWrapper
-	}
-  console.log('the style name')
-  console.log(styleName)
-
-	// remember this is an ARRAY OF ELEMENTS returning
+  // the parent videwrap classes are passed in as css module classes
+  // the button's are passed in as deku-css-module style names
 	return (
-    	<div styleName='videoWrapper' class={className}>
-        <div styleName='videoWrapper' class={className}>
-          <button class={className} styleName='button blue'>press me</button>
-          <button class={className} styleName='button blue'>press me</button>
-          <button class={className} styleName='button blue'>press me</button>
-        </div>
+    	<div class={styles.videoWrapper}>
+          <button styleName='button blue'>press me</button>
+          <button styleName='button'>press me</button>
       </div>
     );
 
 }
+
 
 /* Video */
 let Video = {
