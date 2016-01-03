@@ -1,4 +1,7 @@
 # deku-css-modules
+
+[![npm version](https://badge.fury.io/js/deku-css-modules.svg)](https://badge.fury.io/js/deku-css-modules)
+
 Mapping of class names to CSS modules in Deku components
 
 ## CSS Modules
@@ -105,24 +108,11 @@ Setup consists of:
 
 #### webpack
 
-* Install [`style-loader`](https://www.npmjs.com/package/style-loader) and [`css-loader`](https://www.npmjs.com/package/css-loader).
-* You need to use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to aggregate the CSS into a single file.
-* Setup `/\.css$/` loader:
+* Install [`style-loader`](https://www.npmjs.com/package/style-loader) and [`css-loader`](https://www.npmjs.com/package/css-loader)
+* You need to use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to aggregate the CSS into a single file
+* Setup your `/\.css$/` loader
 
-```js
-{
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
-}
-```
-
-* Setup `extract-text-webpack-plugin` plugin:
-
-```js
-new ExtractTextPlugin('app.css', {
-    allChunks: true
-})
-```
+Check out the included [webpack example](https://github.com/StevenIseki/deku-css-modules/tree/master/example)
 
 #### Browserify
 
