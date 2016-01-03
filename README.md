@@ -93,7 +93,7 @@ Benefits of using `deku-css-modules`:
 <div class='global-css' styleName='local-module'></div>
 ```
 
-## The Implementation
+## Implementation
 
 `deku-css-modules` extends the `render` method of the target component. It will use the value of `styleName` to look for CSS Modules in the associated styles object and will append the matching unique CSS class names to the `Element` `className` property value.
 
