@@ -1,31 +1,29 @@
 /** @jsx element */
 
-import {deku, render,tree} from 'deku'
-import element from 'magic-virtual-element'
-
-let myFunc = {}
+/* styles object, component styles and css modules to be assigned to */
 let styles = {}
 
 /*
     deku css modules...
-    replaces the render function on your deku component
+    runs the render function on your deku component
     runs the components render function, which builds a virtual dom object
     it then reparse's the class names from styleName to css module class names
     on each vdom node
 */
-
 let CSSModules = function (component) {
     let { props, state } = component;
-    /* 
+    /*
         here we have all of the styles passed from the component,
         because they assigned them to deku-css-modules style Object
     */
     console.log(styles)
-    /* 
+
+    /*
         the items from the components render function,
         run the function and now we have the virtual dom object here
-    */    
-    let items = myFunc.render()
+    */
+    let items = CSSModules.render()
+
     let cssParsedItems = walkDom(items)
     return cssParsedItems
 }
@@ -77,4 +75,4 @@ function walkDom (items) {
     return items;
 }
 
-export { CSSModules, styles, myFunc }
+export { CSSModules, styles }
