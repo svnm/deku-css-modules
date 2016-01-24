@@ -38,15 +38,13 @@ Rendering the component will produce a markup similar to:
 </div>
 ```
 
-and a corresponding CSS file that matches those CSS classes.
-
-Awesome!
+and a corresponding CSS file that matches those CSS classes... Awesome!
 
 ### deku-css-modules
 
 Similar to [React CSS Modules](https://github.com/gajus/react-css-modules), Deku CSS Modules automates loading of CSS Modules using the `styleName` property. 
 
-Check out the example [deku-webpack-example](https://github.com/StevenIseki/deku-webpack-example)
+Check out the [deku-webpack-example](https://github.com/StevenIseki/deku-webpack-example)
 
 ```js
 /** @jsx element */
@@ -65,7 +63,6 @@ CSSModules.render = function () {
         <div styleName='table'>
             <div styleName='row'>
                 <div styleName='cell'>A0</div>
-                <div styleName='cell'>B0</div>
             </div>
         </div>
     )
@@ -93,14 +90,12 @@ Benefits of using `deku-css-modules`:
 
 ## Implementation
 
-`deku-css-modules` extends the `render` method of the target component. It will use the value of `styleName` to look for CSS Modules in the associated styles object and will append the matching unique CSS class names to the `Element` `className` property value.
+`deku-css-modules` extends the `render` method of the target component. It uses the value of `styleName` to look for CSS Modules in the associated styles object and appends the matching unique CSS class names to each `Element`s `className` property value.
 
 ## Usage
 
-Setup consists of:
-
-* Setting up a [module bundler](#modulebundler) to load the [Interoperable CSS](https://github.com/css-modules/icss).
-* Configuring the render method of your component to use `deku-css-modules`
+* Set up a [module bundler](#modulebundler) to load the [Interoperable CSS](https://github.com/css-modules/icss).
+* Configure the render method of your component to use `deku-css-modules`
 
 ### Bundlers
 
