@@ -1,6 +1,6 @@
 {
   "name": "deku-css-modules",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "mapping of class names to CSS modules inside Deku components",
   "main": "lib/dekucssmodules.js",
   "repository": {
