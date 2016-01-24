@@ -2,7 +2,7 @@
   "name": "deku-css-modules",
   "version": "1.0.0",
   "description": "mapping of class names to CSS modules inside Deku components",
-  "main": "index.js",
+  "main": "lib/dekucssmodules.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/StevenIseki/deku-css-modules.git"

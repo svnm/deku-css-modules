@@ -16,7 +16,7 @@ let CSSModules = function (component) {
         here we have all of the styles passed from the component,
         because they assigned them to deku-css-modules style Object
     */
-    console.log(styles)
+    //console.log(styles)
 
     /*
         the items from the components render function,
