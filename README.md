@@ -44,7 +44,7 @@ Awesome!
 
 Similar to [React CSS Modules](https://github.com/gajus/react-css-modules), Deku CSS Modules automates loading of CSS Modules using the `styleName` property. 
 
-Check out the included [example](https://github.com/StevenIseki/deku-css-modules/tree/master/example)
+Check out the example [deku-webpack-example](https://github.com/StevenIseki/deku-webpack-example)
 
 ```js
 /** @jsx element */
@@ -117,3 +117,13 @@ Check out the included [webpack example](https://github.com/StevenIseki/deku-css
 #### Browserify
 
 Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
+
+## Development
+    npm install
+    npm run build
+    npm test
+    npm start
+
+## License
+
+[MIT](http://isekivacenz.mit-license.org/)
