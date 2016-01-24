@@ -6,7 +6,9 @@ Mapping of class names to CSS modules in Deku components
 
 ## CSS Modules
 
-[CSS Modules](https://github.com/css-modules/css-modules) uses a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS module loader will generate a unique name for a each CSS class at the time of loading the CSS document 
+[CSS Modules](https://github.com/css-modules/css-modules) uses a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. 
+
+CSS module loader will generate a unique name for a each CSS class at the time of loading the CSS document
 
 CSS Modules with Deku looks like this:
 
