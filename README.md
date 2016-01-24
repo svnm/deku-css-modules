@@ -6,7 +6,7 @@ Mapping of class names to CSS modules in Deku components
 
 ## CSS Modules
 
-[CSS Modules](https://github.com/css-modules/css-modules) uses a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS module loader will generate a unique name for a each CSS class at the time of loading the CSS document ([Interoperable CSS](https://github.com/css-modules/icss) to be precise). To see CSS Modules in practice, [webpack-demo](https://css-modules.github.io/webpack-demo/).
+[CSS Modules](https://github.com/css-modules/css-modules) uses a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS module loader will generate a unique name for a each CSS class at the time of loading the CSS document 
 
 CSS Modules with Deku looks like this:
 
@@ -87,11 +87,7 @@ Benefits of using `deku-css-modules`:
 
 * You are not forced to use `camelCase` naming convention.
 * You do not need to refer to the `styles` object every time you use a CSS Module.
-* There is clear distinction between global CSS and CSS Modules, e.g.
-
-```js
-<div class='global-css' styleName='local-module'></div>
-```
+* There is clear distinction between global CSS `class` and CSS Modules `styleName`
 
 ## Implementation
 
@@ -102,17 +98,18 @@ Benefits of using `deku-css-modules`:
 Setup consists of:
 
 * Setting up a [module bundler](#modulebundler) to load the [Interoperable CSS](https://github.com/css-modules/icss).
-* Configuring the render method of your component to use `deku-css-modules` render and pass your jsx/elements to this method.
+* Configuring the render method of your component to use `deku-css-modules`
 
-### Module Bundler
+### Bundlers
 
 #### webpack
 
 * Install [`style-loader`](https://www.npmjs.com/package/style-loader) and [`css-loader`](https://www.npmjs.com/package/css-loader)
-* You need to use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to aggregate the CSS into a single file
+* Use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to aggregate the CSS into a single file
 * Setup your `/\.css$/` loader
 
-Check out the included [webpack example](https://github.com/StevenIseki/deku-css-modules/tree/master/example)
+Check out the example [deku-webpack-example](https://github.com/StevenIseki/deku-webpack-example)
+
 
 #### Browserify
 
