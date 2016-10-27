@@ -12,16 +12,16 @@ CSS module loader will generate a unique name for a each CSS class at the time o
 
 CSS Modules with Deku looks like this:
 
-```jsx
-import {render,tree} from 'deku'
-import element from 'virtual-element'
+```js
+/** @jsx element */
+import { element } from 'deku';
 import styles from './table.css';
 
 let Table = {
     render () {
-        return <div className={styles.table}>
-            <div className={styles.row}>
-                <div className={styles.cell}>A0</div>
+        return <div class={styles.table}>
+            <div class={styles.row}>
+                <div class={styles.cell}>A0</div>
             </div>
         </div>;
     }
@@ -49,16 +49,11 @@ Check out the [deku-webpack-example](https://github.com/StevenIseki/deku-webpack
 ```js
 /** @jsx element */
 
-import {render,tree} from 'deku'
-import element from 'virtual-element'
+import { element } from 'deku';
+import CSSModules from 'deku-css-modules.js';
+import styles from './table.css';
 
-import { CSSModules, styles } from 'deku-css-modules.js'
-
-/* assign the styles to deku-css-modules' style object */
-import tableStyles from './Table.css'
-Object.assign(styles, tableStyles)
-
-CSSModules.render = function () {
+const Table = function () {
     return (
         <div styleName='table'>
             <div styleName='row'>
@@ -68,18 +63,8 @@ CSSModules.render = function () {
     )
 }
 
-let Table = {
-  initialState () {
-    return { }
-  },
-  afterUpdate (component) {
-    let { props, state } = component;
-  },
-}
+export default CSSModules(Table, styles);
 
-Table.render = CSSModules
-
-export { Table }
 ```
 
 Benefits of using `deku-css-modules`:
@@ -106,6 +91,128 @@ Benefits of using `deku-css-modules`:
 * Setup your `/\.css$/` loader
 
 Check out the example [deku-webpack-example](https://github.com/StevenIseki/deku-webpack-example)
+### Extending Component Styles
+
+Use `styles` property to overwrite the default component styles.
+
+Explanation using `Table` component:
+
+```js
+/** @jsx element */
+import { element } from 'deku';
+import CSSModules from 'deku-css-modules.js';
+import styles from './table.css';
+
+const Table = function () {
+    return (
+        <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+            </div>
+        </div>
+    )
+}
+
+export default CSSModules(Table, styles);
+```
+
+In this example, `CSSModules` is used to decorate `Table` component using `./table.css` CSS Modules. When `Table` component is rendered, it will use the properties of the `styles` object to construct `className` values.
+
+Using `styles` property you can overwrite the default component `styles` object, e.g.
+
+```js
+import customStyles from './table-custom-styles.css';
+
+<Table styles={customStyles} />;
+```
+[Interoperable CSS](https://github.com/css-modules/icss) can [extend other ICSS](https://github.com/css-modules/css-modules#dependencies). Use this feature to extend default styles, e.g.
+
+```css
+/* table-custom-styles.css */
+.table {
+    composes: table from './table.css';
+}
+
+.row {
+    composes: row from './table.css';
+}
+
+/* .cell {
+    composes: cell from './table.css';
+} */
+
+.table {
+    width: 400px;
+}
+
+.cell {
+    float: left; width: 154px; background: #eee; padding: 10px; margin: 10px 0 10px 10px;
+}
+```
+
+In this example, `table-custom-styles.css` selectively extends `table.css` (the default styles of `Table` component).
+
+Refer to the [`UsingStylesProperty` example](https://github.com/gajus/react-css-modules-examples/tree/master/src/UsingStylesProperty) for an example of a working implementation.
+
+### `styles` Property
+
+Decorated components inherit `styles` property that describes the mapping between CSS modules and CSS classes.
+
+```js
+const render = ({props}) => {
+    <div>
+        <p styleName='foo'></p>
+        <p class={props.styles.foo}></p>
+    </div>;
+}
+```
+
+In the above example, `styleName='foo'` and `class={this.props.styles.foo}` are equivalent.
+
+### Decorator
+You need to decorate your component using `deku-css-modules`, e.g.
+
+```js
+/** @jsx element **/
+import { element } from 'deku';
+import CSSModules from 'deku-css-modules.js';
+import styles from './table.css';
+
+const Table = function () {
+    return (
+        <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+            </div>
+        </div>
+    )
+}
+
+export default CSSModules(Table, styles);
+```
+
+Thats it!
+
+As the name implies, `deku-css-modules` is compatible with the [ES7 decorators](https://github.com/wycats/javascript-decorators) syntax:
+
+```js
+/** @jsx element **/
+import { element } from 'deku';
+import CSSModules from 'deku-css-modules.js';
+import styles from './table.css';
+
+@CSSModules(styles)
+export default function () {
+    return (
+        <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+            </div>
+        </div>
+    )
+}
+```
+
 
 
 #### Browserify
@@ -121,3 +228,5 @@ Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
 ## License
 
 [MIT](http://isekivacenz.mit-license.org/)
+
+

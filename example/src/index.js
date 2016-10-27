@@ -1,11 +1,9 @@
 /** @jsx element */
 
-import element from 'virtual-element'
-import { Video } from './components/Video/Video';
-import {render, tree} from 'deku'
+import Video from './components/Video/Video';
+import { createApp, element } from 'deku';
 
-let video = tree(
-    <Video color='pink' />
-);
+let render = createApp(document.getElementById('root'));
+let styles = {}
 
-render(video, document.getElementById('root'))
+render(<Video color='pink' styles ={styles} />)
