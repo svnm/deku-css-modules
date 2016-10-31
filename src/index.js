@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import isFunction from 'lodash/isFunction';
+import isObject from 'lodash/isObject';
 import { vnode } from 'deku';
 
 const linkClass = (vnode, styles) => {
@@ -37,7 +38,7 @@ const functionConstructor = (Component, defaultStyles, options) => {
 
     if (props.styles) {
       styles = props.styles;
-    } else if (_.isObject(defaultStyles)) {
+    } else if (isObject(defaultStyles)) {
       styles = defaultStyles;
     } else {
       styles = {};
@@ -64,9 +65,9 @@ const decoratorConstructor = (defaultStyles, options) => {
 };
 
 export default (...args) => {
-  if (_.isFunction(args[0])) {
+  if (isFunction(args[0])) {
     return functionConstructor(args[0], args[1], args[2]);
-  } else if (_.isObject(args[0]) && _.isFunction(args[0].render)) {
+  } else if (isObject(args[0]) && isFunction(args[0].render)) {
     return Object.assign(args[0], {
       render: functionConstructor(args[0].render, args[1], args[2])
     })
