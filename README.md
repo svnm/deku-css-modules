@@ -201,8 +201,9 @@ import { element } from 'deku';
 import CSSModules from 'deku-css-modules.js';
 import styles from './table.css';
 
-@CSSModules(styles)
-export default function () {
+export default {
+  @CSSModules(styles)
+  render: () => {
     return (
         <div styleName='table'>
             <div styleName='row'>
@@ -210,6 +211,10 @@ export default function () {
             </div>
         </div>
     )
+  },
+  onCreate: () => {
+    console.log('A MyComponent entity was created!')
+  }
 }
 ```
 
