@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import isFunction from 'lodash/isFunction';
+import isObject from 'lodash/isObject';
 import { vnode } from 'deku';
 
 const linkClass = (vnode, styles) => {
@@ -21,29 +22,30 @@ const linkClass = (vnode, styles) => {
         }
       })
     }
-	delete vnode.attributes.styleName;
-	if (classes.size) {
-		vnode.attributes.class = Array.from(classes).join(' ');
-	}
+    delete vnode.attributes.styleName;
+    if (classes.size) {
+      vnode.attributes.class = Array.from(classes).join(' ');
+    }
   }
   return vnode;
 }
+
 const functionConstructor = (Component, defaultStyles, options) => {
-  const WrappedComponent = (kwargs) => {
+  const render = isFunction(Component)? Component : Component.render;
+  const WrappedComponent = (model) => {
     let styles;
-    let {
-      props
-    } = kwargs;
+    let { props }  = model;
 
     if (props.styles) {
       styles = props.styles;
-    } else if (_.isObject(defaultStyles)) {
+    } else if (isObject(defaultStyles)) {
+      props.styles = defaultStyles;
       styles = defaultStyles;
     } else {
       styles = {};
     }
 
-    const renderResult = Component(kwargs);
+    const renderResult = render(model);
 
     if (renderResult) {
       return linkClass(renderResult, styles, options);
@@ -51,7 +53,14 @@ const functionConstructor = (Component, defaultStyles, options) => {
 
     return vnode.createEmptyElement();
   }
-  return WrappedComponent;
+
+  if (isFunction(Component)) {
+    return WrappedComponent;
+  } else {
+    return Object.assign(Component, {
+      render: WrappedComponent
+    });
+  }
 };
 
 /**
@@ -64,12 +73,9 @@ const decoratorConstructor = (defaultStyles, options) => {
 };
 
 export default (...args) => {
-  if (_.isFunction(args[0])) {
+  if (isFunction(args[0]) || 
+     isObject(args[0]) && isFunction(args[0].render)) {
     return functionConstructor(args[0], args[1], args[2]);
-  } else if (_.isObject(args[0]) && _.isFunction(args[0].render)) {
-    return Object.assign(args[0], {
-      render: functionConstructor(args[0].render, args[1], args[2])
-    })
   } else {
     return decoratorConstructor(args[0], args[1]);
   }
